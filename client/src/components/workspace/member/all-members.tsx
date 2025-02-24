@@ -133,33 +133,29 @@ const AllMembers = () => {
                           <>
                             <CommandEmpty>No roles found.</CommandEmpty>
                             <CommandGroup>
-                              {roles?.map(
-                                (role) =>
-                                  role.name !== "OWNER" && (
-                                    <CommandItem
-                                      key={role._id}
-                                      disabled={isLoading}
-                                      className="disabled:pointer-events-none gap-1 mb-1  flex flex-col items-start px-4 py-2 cursor-pointer"
-                                      onSelect={() => {
-                                        handleSelect(
-                                          role._id,
-                                          member.userId._id
-                                        );
-                                      }}
-                                    >
-                                      <p className="capitalize">
-                                        {role.name?.toLowerCase()}
-                                      </p>
-                                      <p className="text-sm text-muted-foreground">
-                                        {role.name === "ADMIN" &&
-                                          `Can view, create, edit tasks, project and manage settings .`}
+                              {roles?.map((role) => {
+                                if (role.name === "OWNER") return null;
+                                if (role._id === member.role._id) return null;
 
-                                        {role.name === "MEMBER" &&
-                                          `Can view,edit only task created by.`}
-                                      </p>
-                                    </CommandItem>
-                                  )
-                              )}
+                                return (
+                                  <CommandItem
+                                    key={role._id}
+                                    disabled={isLoading}
+                                    className="disabled:pointer-events-none gap-1 mb-1 flex flex-col items-start px-4 py-2 cursor-pointer"
+                                    onSelect={() => {
+                                      handleSelect(role._id, member.userId._id);
+                                    }}
+                                  >
+                                    <p className="capitalize">{role.name?.toLowerCase()}</p>
+                                    <p className="text-sm text-muted-foreground">
+                                      {role.name === "ADMIN" &&
+                                        `Can view, create, edit tasks, project and manage settings.`}
+                                      {role.name === "MEMBER" &&
+                                        `Can view, edit only task created by.`}
+                                    </p>
+                                  </CommandItem>
+                                );
+                              })}
                             </CommandGroup>
                           </>
                         )}

@@ -106,7 +106,6 @@ export const changeWorkspaceMemberRoleController = asyncHandler(
   async (req: Request, res: Response) => {
     const workspaceId = workspaceIdSchema.parse(req.params.id);
     const { memberId, roleId } = changeRoleSchema.parse(req.body);
-
     const userId = req.user?._id;
 
     const { role } = await getMemberRoleInWorkspace(userId, workspaceId);
@@ -115,7 +114,8 @@ export const changeWorkspaceMemberRoleController = asyncHandler(
     const { member } = await changeMemberRoleService(
       workspaceId,
       memberId,
-      roleId
+      roleId,
+      userId
     );
 
     return res.status(HTTPSTATUS.OK).json({

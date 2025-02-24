@@ -1,13 +1,17 @@
 import { ErrorCodeEnum } from "../enums/error-code.enum";
 import { Roles } from "../enums/role.enum";
 import MemberModel from "../models/member.model";
-import RoleModel from "../models/roles-permission.model";
+import RoleModel, { RoleDocument } from "../models/roles-permission.model";
 import WorkspaceModel from "../models/workspace.model";
 import {
   BadRequestException,
   NotFoundException,
   UnauthorizedException,
 } from "../utils/appError";
+
+interface PopulatedMember {
+  role: RoleDocument;
+}
 
 export const getMemberRoleInWorkspace = async (
   userId: string,
@@ -21,7 +25,7 @@ export const getMemberRoleInWorkspace = async (
   const member = await MemberModel.findOne({
     userId,
     workspaceId,
-  }).populate("role");
+  }).populate<PopulatedMember>("role");
 
   if (!member) {
     throw new UnauthorizedException(
@@ -30,7 +34,7 @@ export const getMemberRoleInWorkspace = async (
     );
   }
 
-  const roleName = member.role?.name;
+  const roleName = member.role.name;
 
   return { role: roleName };
 };

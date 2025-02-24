@@ -6,8 +6,8 @@ import UserModel from "../models/user.model";
 import WorkspaceModel from "../models/workspace.model";
 import { BadRequestException, NotFoundException } from "../utils/appError";
 import TaskModel from "../models/task.model";
-import { TaskStatusEnum } from "../enums/task.enum";
 import ProjectModel from "../models/project.model";
+import { TaskStatusEnum } from "../enums/task.enum";
 
 //********************************
 // CREATE NEW WORKSPACE
@@ -144,7 +144,8 @@ export const getWorkspaceAnalyticsService = async (workspaceId: string) => {
 export const changeMemberRoleService = async (
   workspaceId: string,
   memberId: string,
-  roleId: string
+  roleId: string,
+  changedByUserId: string
 ) => {
   const workspace = await WorkspaceModel.findById(workspaceId);
   if (!workspace) {
@@ -165,11 +166,28 @@ export const changeMemberRoleService = async (
     throw new Error("Member not found in the workspace");
   }
 
-  member.role = role;
+  // Add current role to history before changing
+  if (!member.roleHistory) {
+    member.roleHistory = [];
+  }
+
+  member.roleHistory.push({
+    role: member.role,
+    changedBy: new mongoose.Types.ObjectId(changedByUserId),
+    changedAt: new Date()
+  });
+
+  member.role = new mongoose.Types.ObjectId(roleId);
   await member.save();
 
+  // Populate the member data before returning
+  const updatedMember = await member.populate([
+    { path: 'userId', select: 'name email profilePicture -password' },
+    { path: 'role', select: 'name' }
+  ]);
+
   return {
-    member,
+    member: updatedMember,
   };
 };
 

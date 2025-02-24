@@ -4,8 +4,13 @@ import { RoleDocument } from "./roles-permission.model";
 export interface MemberDocument extends Document {
   userId: mongoose.Types.ObjectId;
   workspaceId: mongoose.Types.ObjectId;
-  role: RoleDocument;
+  role: mongoose.Types.ObjectId;
   joinedAt: Date;
+  roleHistory: Array<{
+    role: mongoose.Types.ObjectId;
+    changedBy: mongoose.Types.ObjectId;
+    changedAt: Date;
+  }>;
 }
 
 const memberSchema = new Schema<MemberDocument>(
@@ -29,6 +34,22 @@ const memberSchema = new Schema<MemberDocument>(
       type: Date,
       default: Date.now,
     },
+    roleHistory: [{
+      role: {
+        type: Schema.Types.ObjectId,
+        ref: "Role",
+        required: true,
+      },
+      changedBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      changedAt: {
+        type: Date,
+        default: Date.now,
+      }
+    }],
   },
   {
     timestamps: true,
