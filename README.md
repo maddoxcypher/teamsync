@@ -1,29 +1,78 @@
 # TeamSync - B2B Project Management Platform
 
-TeamSync is a robust project management platform built with modern web technologies, designed to help teams collaborate efficiently and manage projects effectively.
+## 📝 Abstract
 
-## 🌟 Features
+TeamSync is a comprehensive B2B project management solution built with modern web technologies. It enables organizations to streamline their project workflows, manage tasks efficiently, and foster team collaboration through an intuitive interface. The platform implements role-based access control, real-time analytics, and seamless workspace management to enhance team productivity.
 
-- **Workspace Management**
-  - Create and manage multiple workspaces
-  - Invite team members with custom invite codes
-  - Role-based access control (Owner, Admin, Member)
+## 🎯 Core Features
 
-- **Project Management**
-  - Create and organize projects within workspaces
-  - Custom project emojis and descriptions
-  - Project analytics and progress tracking
+### Workspace Management
+- **Multi-Workspace Support**: Create and manage multiple isolated workspaces
+- **Custom Invite System**: Generate and manage invite codes for team members
+- **Role-Based Access**: Granular permissions with Owner, Admin, and Member roles
+- **Workspace Analytics**: Track workspace metrics and team performance
 
-- **Task Management**
-  - Create and assign tasks
-  - Priority levels and status tracking
-  - Due date management
-  - Task analytics
+### Project Management
+- **Project Organization**
+  - Create projects with custom emojis and descriptions
+  - Organize projects within workspaces
+  - Project-specific analytics and progress tracking
+  - Real-time project status updates
 
-- **Team Collaboration**
-  - Member management with role-based permissions
+### Task Management System
+- **Task Creation & Assignment**
+  - Create tasks with priorities and due dates
+  - Assign tasks to team members
+  - Track task status and progress
+  - Task filtering and search capabilities
+
+- **Task Analytics**
+  - Overview of total tasks
+  - Tracking of overdue tasks
+  - Completion rate analysis
+  - Priority-based task distribution
+
+### Team Collaboration
+- **Member Management**
+  - Role-based permissions system
+  - Activity tracking
   - Real-time updates
-  - Workspace activity tracking
+  - Team performance metrics
+
+## 🔧 Technical Implementation
+
+### Data Models
+
+#### Project Schema
+- Name (required)
+- Description (optional)
+- Emoji (custom project identifier)
+- Workspace reference
+- Created by
+- Timestamps
+
+#### Task Schema
+- Title (required)
+- Description (optional)
+- Status (TODO, IN_PROGRESS, DONE)
+- Priority (LOW, MEDIUM, HIGH, URGENT)
+- Due date
+- Assigned to
+- Project reference
+- Task code (unique identifier)
+
+### Analytics Implementation
+- **Project Analytics**: 
+  - Task completion rates
+  - Overdue task tracking
+  - Team performance metrics
+  - Real-time progress updates
+
+- **Workspace Analytics**:
+  - Overall project health
+  - Team productivity metrics
+  - Resource utilization
+  - Timeline tracking
 
 ## 🛠 Tech Stack
 
