@@ -1,8 +1,8 @@
-# TeamSync - B2B Project Management Platform
+# SyncVortax - B2B Project Management Platform
 
 ## 📝 Abstract
 
-TeamSync is a comprehensive B2B project management solution built with modern web technologies. It enables organizations to streamline their project workflows, manage tasks efficiently, and foster team collaboration through an intuitive interface. The platform implements role-based access control, real-time analytics, and seamless workspace management to enhance team productivity.
+SyncVortax is a comprehensive B2B project management solution built with modern web technologies. It enables organizations to streamline their project workflows, manage tasks efficiently, and foster team collaboration through an intuitive interface. The platform implements role-based access control, real-time analytics, and seamless workspace management to enhance team productivity.
 
 ## 🎯 Core Features
 
